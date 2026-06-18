@@ -1,6 +1,12 @@
 import React from "react";
 
-const DailyHabit = () => {
+const DailyHabit = ({ habits, setHabits }) => {
+  const handleHabitChange = (index, value) => {
+    const copy = [...habits];
+    copy[index].name = value;
+    setHabits(copy);
+  };
+
   return (
     <div className="border-2 w-75">
       <div className="h-12 border-b flex justify-center p-2.5 font-bold text-center bg-purple-300">
@@ -15,21 +21,22 @@ const DailyHabit = () => {
         <p>31/31</p>
       </div>
       <div>
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
-        <input className="h-7 border-b w-full" type="text" placeholder="Enter Habit" />
+        {habits.map((habit, index) => (
+          <input
+            key={index}
+            type="text"
+            value={habit.name}
+            onChange={(e) =>
+              handleHabitChange(
+                index,
+
+                e.target.value,
+              )
+            }
+            className="h-7 border-b w-full"
+            placeholder="Enter Habit"
+          />
+        ))}
       </div>
     </div>
   );

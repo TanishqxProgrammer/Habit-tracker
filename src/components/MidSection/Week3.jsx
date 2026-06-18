@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Week1 = () => {
-  const [checked, setChecked] = useState(Array(105).fill(false));
+const Week3 = ({ habits, setHabits }) => {
+const toggleBox = (row, col) => {
 
-  const toggleBox = (index) => {
-    const copy = [...checked];
+  const copy = habits.map(habit => ({
+    ...habit,
+    checks: [...habit.checks]
+  }));
 
-    copy[index] = !copy[index];
+  copy[row].checks[col] =
+    !copy[row].checks[col];
 
-    setChecked(copy);
-  };
+  setHabits(copy);
+
+};
 
   return (
     <div className="border w-50">
@@ -45,32 +49,46 @@ const Week1 = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-7">
-        {checked.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => toggleBox(index)}
-            className={`
+      <div>
+        {habits.map((habit, row) => (
+          <div key={row} className="grid grid-cols-7">
+            {habit.checks
 
-                h-7
+              .slice(14, 21)
 
-                border
+              .map((item, col) => (
+                <div
+                  key={col}
+                  onClick={() =>
+                    toggleBox(
+                      row,
 
-                border-gray-400
+                      col + 14,
+                    )
+                  }
+                  className={`
 
-                cursor-pointer
+h-7
 
-                flex
+border
 
-                justify-center
+border-gray-400
 
-                items-center
+cursor-pointer
 
-                ${item ? "bg-pink-300" : "bg-pink-50"}
+flex
 
-              `}
-          >
-            {item ? "✓" : ""}
+justify-center
+
+items-center
+
+${item ? "bg-pink-300" : "bg-pink-50"}
+
+`}
+                >
+                  {item ? "✓" : ""}
+                </div>
+              ))}
           </div>
         ))}
       </div>
@@ -78,4 +96,4 @@ const Week1 = () => {
   );
 };
 
-export default Week1;
+export default Week3;

@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Week1 = () => {
-  const [checked, setChecked] = useState(Array(105).fill(false));
+const Week1 = ({ habits, setHabits }) => {
 
-  const toggleBox = (index) => {
-    const copy = [...checked];
+const toggleBox = (row, col) => {
 
-    copy[index] = !copy[index];
+  const copy = habits.map(habit => ({
+    ...habit,
+    checks: [...habit.checks]
+  }));
 
-    setChecked(copy);
-  };
+  copy[row].checks[col] =
+    !copy[row].checks[col];
 
+  setHabits(copy);
+
+};
   return (
     <div className="border w-50">
       <div className="h-12 border-b flex justify-center p-2.5 font-bold text-center bg-cyan-300">
@@ -45,12 +49,18 @@ const Week1 = () => {
         ))}
       </div>
 
-      <div className="grid grid-cols-7">
-        {checked.map((item, index) => (
-          <div
-            key={index}
-            onClick={() => toggleBox(index)}
-            className={`
+      <div>
+        {habits.map((habit, row) => (
+          <div key={row} className="grid grid-cols-7">
+            {habit.checks
+
+              .slice(0, 7)
+
+              .map((item, col) => (
+                <div
+                  key={col}
+                  onClick={() => toggleBox(row, col)}
+                  className={`
 
                 h-7
 
@@ -69,8 +79,10 @@ const Week1 = () => {
                 ${item ? "bg-cyan-300" : "bg-cyan-50"}
 
               `}
-          >
-            {item ? "✓" : ""}
+                >
+                  {item ? "✓" : ""}
+                </div>
+              ))}
           </div>
         ))}
       </div>

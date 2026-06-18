@@ -1,28 +1,20 @@
 import React from "react";
 
-const Progress = () => {
+const Progress = ({ habits }) => {
+  const totalCompleted = habits.reduce(
+    (sum, habit) => sum + habit.checks.filter((check) => check).length,
 
-  const progressData = [
-    { completed: 25, total: 31 },
-    { completed: 20, total: 20 },
-    { completed: 29, total: 31 },
-    { completed: 24, total: 31 },
-    { completed: 28, total: 31 },
-    { completed: 20, total: 31 },
-    { completed: 24, total: 31 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-    { completed: 0, total: 0 },
-  ];
+    0,
+  );
+
+  const totalGoals = habits.reduce(
+    (sum, habit) => sum + Number(habit.goal || 0),
+
+    0,
+  );
 
   return (
     <div className="border-2 w-75">
-
       <div className="h-12 border-b flex justify-center items-center font-bold bg-purple-300">
         <h1 className="font-serif">PROGRESS</h1>
       </div>
@@ -32,28 +24,29 @@ const Progress = () => {
       </div>
 
       <div className="border-b h-7 flex justify-center items-center bg-purple-100">
-        202 / 228
+        {totalCompleted} / {totalGoals}
       </div>
 
       {/* Progress Rows */}
 
-      {progressData.map((item, index) => {
+      {habits.map((habit, index) => {
+        const completed = habit.checks.filter((check) => check).length;
 
-        const percentage = (item.completed / item.total) * 100;
+        const total = Number(habit.goal || 0);
 
+        const percentage = total > 0 ? (completed / total) * 100 : 0;
         return (
           <div
             key={index}
             className="flex items-center gap-2 px-2 border-b h-7"
           >
-
             {/* Progress Bar */}
 
-            <div className="w-full h-4 bg-gray-100">
+            <div className="w-full h-4 bg-gray-100 overflow-hidden">
               <div
                 className="h-full bg-purple-200"
                 style={{
-                  width: `${percentage}%`,
+                  width: `${Math.min(percentage, 100)}%`,
                 }}
               ></div>
             </div>
@@ -61,15 +54,13 @@ const Progress = () => {
             {/* Numbers */}
 
             <p className="text-xs whitespace-nowrap">
-              {item.completed}/{item.total}
+              {completed}/{total}
             </p>
-
           </div>
         );
       })}
-
     </div>
   );
 };
 
-export default Progress
+export default Progress;

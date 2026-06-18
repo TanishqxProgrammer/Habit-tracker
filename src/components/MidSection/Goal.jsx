@@ -1,21 +1,22 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Goal = () => {
+const Goal = ({ habits, setHabits }) => {
+  const handleGoalChange = (index, value) => {
+    const copy = habits.map((habit) => ({
+      ...habit,
+      checks: [...habit.checks],
+    }));
 
-  const [goals, setGoals] = useState(Array(15).fill(""));
+    copy[index].goal = Number(value);
 
-  const handleChange = (index, value) => {
-    const copyGoals = [...goals];
-    copyGoals[index] = value;
-    setGoals(copyGoals);
+    setHabits(copy);
   };
 
   return (
     <div className="border w-9">
-      
       <div className="w-full h-26 border-b flex justify-center items-center">
         <p className="whitespace-pre-line font-bold font-serif text-center">
-{`G
+          {`G
 O
 A
 L`}
@@ -23,17 +24,23 @@ L`}
       </div>
 
       <div className="flex flex-col">
-        {goals.map((goal, index) => (
+        {habits.map((habit, index) => (
           <input
             key={index}
             type="number"
-            value={goal}
-            onChange={(e) => handleChange(index, e.target.value)}
+            min="0"
+            value={habit.goal}
+            onChange={(e) =>
+              handleGoalChange(
+                index,
+
+                e.target.value,
+              )
+            }
             className="h-7 w-full border-b text-center outline-none"
           />
         ))}
       </div>
-
     </div>
   );
 };
