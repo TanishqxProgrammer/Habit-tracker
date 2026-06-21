@@ -34,7 +34,7 @@ const Page = () => {
       />
 
       <Middle habits={habits} setHabits={setHabits} totalDays={totalDays} />
-      <Footer />
+      <Footer habits={habits} />
     </div>
   );
 };

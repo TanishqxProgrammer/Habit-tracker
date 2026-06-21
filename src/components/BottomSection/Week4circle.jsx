@@ -5,9 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Week4circle = () => {
-  const percentage = 76;
-
+const Week2circle = ({ percentage, completedPerDay, incompletePerDay }) => {
   const data = {
     datasets: [
       {
@@ -34,9 +32,6 @@ const Week4circle = () => {
     },
   };
 
-  const completed = 8;
-  const incompleted = 1;
-
   return (
     <div className="h-50 w-49 border flex flex-col items-center">
       {/* Donut */}
@@ -52,19 +47,30 @@ const Week4circle = () => {
 
       {/* Bottom Boxes */}
       <div className="flex flex-col mt-[15px]">
-        {[1, 2].map((row) => (
-          <div key={row} className="flex ">
-            {[1, 2, 3, 4, 5, 6, 7].map((box) => (
-              <div
-                key={box}
-                className="h-8 w-7 border-r border-t flex items-center justify-center"
-              ></div>
-            ))}
-          </div>
-        ))}
+        <div className="flex">
+          {completedPerDay.map((num, index) => (
+            <div
+              key={index}
+              className="h-8 w-7 border-r border-t flex items-center justify-center"
+            >
+              {num}
+            </div>
+          ))}
+        </div>
+
+        <div className="flex">
+          {incompletePerDay.map((num, index) => (
+            <div
+              key={index}
+              className="h-8 w-7 border-r border-t flex items-center justify-center"
+            >
+              {num}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 };
 
-export default Week4circle;
+export default Week2circle;
