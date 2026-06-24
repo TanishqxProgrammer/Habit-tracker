@@ -1,9 +1,19 @@
 import React from "react";
 
-const DailyHabit = ({ habits, setHabits }) => {
+const DailyHabit = ({ habits, setHabits, highlightRow }) => {
   const handleHabitChange = (index, value) => {
-    const copy = [...habits];
+    const copy = habits.map((habit) => ({
+      ...habit,
+      checks: [...habit.checks],
+    }));
+
     copy[index].name = value;
+
+    // Agar habit name empty ho jaye
+    if (value.trim() === "") {
+      copy[index].checks = Array(copy[index].checks.length).fill(false);
+    }
+
     setHabits(copy);
   };
 
@@ -33,7 +43,8 @@ const DailyHabit = ({ habits, setHabits }) => {
                 e.target.value,
               )
             }
-            className="h-7 border-b w-full"
+            className={`  h-7  border-b  w-full  transition-all
+  ${highlightRow === index ? "border-2 border-red-500 bg-red-50" : ""}`}
             placeholder="Enter Habit"
           />
         ))}

@@ -63,6 +63,7 @@ const Page = () => {
 
       <Header
         habits={habits}
+        totalDays={totalDays}
         selectedMonth={selectedMonth}
         setSelectedMonth={setSelectedMonth}
         selectedYear={selectedYear}
@@ -76,7 +77,7 @@ const Page = () => {
         calendarData={calendarData}
       />
 
-      <Footer habits={habits} />
+      <Footer habits={habits} totalDays={totalDays} />
     </div>
   );
 };

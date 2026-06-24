@@ -7,7 +7,7 @@ import Week4circle from "./Week4circle";
 import Week5circle from "./Week5circle";
 import Notes from "./Notes";
 
-const Footer = ({ habits }) => {
+const Footer = ({ habits, totalDays }) => {
   const getWeekStats = (startDay, endDay) => {
     let completed = 0;
 
@@ -18,15 +18,25 @@ const Footer = ({ habits }) => {
       let completedToday = 0;
 
       habits.forEach((habit) => {
-        if (habit.checks[day]) {
-          completedToday++;
-          completed++;
+        if (habit.name.trim() !== "") {
+          if (habit.checks[day]) {
+            completedToday++;
+            completed++;
+          }
         }
       });
       completedPerDay.push(completedToday);
-      incompletePerDay.push(habits.length - completedToday);
+      const activeHabits = habits.filter(
+        (habit) => habit.name.trim() !== "",
+      ).length;
+
+      incompletePerDay.push(activeHabits - completedToday);
     }
-    const totalBoxes = habits.length * (endDay - startDay);
+    const activeHabits = habits.filter(
+      (habit) => habit.name.trim() !== "",
+    ).length;
+
+    const totalBoxes = activeHabits * (endDay - startDay);
     const incomplete = totalBoxes - completed;
     const percentage =
       totalBoxes === 0 ? 0 : Math.round((completed / totalBoxes) * 100);
@@ -42,7 +52,7 @@ const Footer = ({ habits }) => {
   const week2 = getWeekStats(7, 14);
   const week3 = getWeekStats(14, 21);
   const week4 = getWeekStats(21, 28);
-  const week5 = getWeekStats(28, 31);
+  const week5 = getWeekStats(28, totalDays);
 
   return (
     <div className="p-2 flex border-2">
@@ -59,19 +69,23 @@ const Footer = ({ habits }) => {
         incompletePerDay={week2.incompletePerDay}
       />
 
-      <Week3circle percentage={week3.percentage}
+      <Week3circle
+        percentage={week3.percentage}
         completedPerDay={week3.completedPerDay}
         incompletePerDay={week3.incompletePerDay}
-        />
+      />
 
-      <Week4circle percentage={week4.percentage}
+      <Week4circle
+        percentage={week4.percentage}
         completedPerDay={week4.completedPerDay}
-        incompletePerDay={week4.incompletePerDay} 
-        />
+        incompletePerDay={week4.incompletePerDay}
+      />
 
-      <Week5circle percentage={week5.percentage}
+      <Week5circle
+        percentage={week5.percentage}
         completedPerDay={week5.completedPerDay}
-        incompletePerDay={week5.incompletePerDay}/>
+        incompletePerDay={week5.incompletePerDay}
+      />
       <Notes />
     </div>
   );

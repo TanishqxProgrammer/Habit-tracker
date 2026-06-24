@@ -3,14 +3,15 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 const COLORS = ["#b7adc9", "#ece8f2"];
 
-export default function ProgressCircle({ habits }) {
-  const completed = habits.reduce(
-    (sum, habit) => sum + habit.checks.filter((check) => check).length,
+export default function ProgressCircle({ habits, totalDays }) {
+  const activeHabits = habits.filter((habit) => habit.name.trim() !== "");
 
+  const completed = activeHabits.reduce(
+    (sum, habit) => sum + habit.checks.filter((check) => check).length,
     0,
   );
 
-  const total = habits.length * 31;
+  const total = activeHabits.length * totalDays;
 
   const percentage = total === 0 ? 0 : Math.round((completed / total) * 100);
 

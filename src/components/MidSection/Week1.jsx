@@ -1,6 +1,6 @@
 import React from "react";
 
-const Week1 = ({ habits, setHabits, calendarData }) => {
+const Week1 = ({ habits, setHabits, calendarData, setHighlightRow }) => {
   const toggleBox = (row, col) => {
     const copy = habits.map((habit) => ({
       ...habit,
@@ -61,26 +61,23 @@ const Week1 = ({ habits, setHabits, calendarData }) => {
               .map((item, col) => (
                 <div
                   key={col}
-                  onClick={() => toggleBox(row, col)}
-                  className={`
+                  title={habit.name.trim() === "" ? "Enter Habit First" : ""}
+                  onClick={() => {
+                    if (habit.name.trim() !== "") {
+                      toggleBox(row, col);
+                    } else {
+                      setHighlightRow(row);
 
-                h-7
-
-                border
-
-                border-gray-400
-
-                cursor-pointer
-
-                flex
-
-                justify-center
-
-                items-center
-
-                ${item ? "bg-cyan-300" : "bg-cyan-50"}
-
-              `}
+                      setTimeout(() => {
+                        setHighlightRow(null);
+                      }, 1500);
+                    }
+                  }}
+                  className={`  h-7  border  border-gray-400  ${
+                    habit.name.trim() === ""
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  }  flex  justify-center  items-center  ${item ? "bg-cyan-300" : "bg-cyan-50"}  `}
                 >
                   {item ? "✓" : ""}
                 </div>

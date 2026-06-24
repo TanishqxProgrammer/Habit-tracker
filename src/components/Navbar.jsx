@@ -29,7 +29,7 @@ const Navbar = ({ dark, setDark, habits = [] }) => {
       <div className="flex items-center gap-5">
         <button onClick={() => setDark(!dark)}>
           <div
-            className=" w-10 h- rounded-full flex items-center justify-cent hover:bg-gray-100 dark:hover:bg-zinc-8 transition duration-200
+            className=" w-10  rounded-full flex items-center justify-cent hover:bg-gray-100 dark:hover:bg-zinc-8 transition duration-200
     "
           >
             {dark ? <Sun size={22} /> : <Moon size={22} />}

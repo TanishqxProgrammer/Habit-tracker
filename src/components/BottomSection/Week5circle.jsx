@@ -5,7 +5,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Week2circle = ({ percentage, completedPerDay, incompletePerDay }) => {
+const Week5circle = ({ percentage, completedPerDay, incompletePerDay }) => {
   const data = {
     datasets: [
       {
@@ -74,4 +74,4 @@ const Week2circle = ({ percentage, completedPerDay, incompletePerDay }) => {
   );
 };
 
-export default Week2circle;
+export default Week5circle;

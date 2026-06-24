@@ -1,6 +1,12 @@
 import React from "react";
 
-const Week5 = ({ habits, setHabits, totalDays, calendarData }) => {
+const Week5 = ({
+  habits,
+  setHabits,
+  totalDays,
+  calendarData,
+  setHighlightRow,
+}) => {
   const remainingDays = Math.max(0, totalDays - 28);
   const toggleBox = (row, col) => {
     const copy = habits.map((habit) => ({
@@ -8,7 +14,7 @@ const Week5 = ({ habits, setHabits, totalDays, calendarData }) => {
       checks: [...habit.checks],
     }));
 
-    copy[row].checks[col] = !copy[row].checks[col];
+    copy[row].checks[col + 28] = !copy[row].checks[col + 28];
 
     setHabits(copy);
   };
@@ -54,7 +60,7 @@ const Week5 = ({ habits, setHabits, totalDays, calendarData }) => {
       </div>
 
       {/* Dates */}
-      
+
       <div
         className="grid h-7 border-b bg-red-300"
         style={{
@@ -96,34 +102,34 @@ const Week5 = ({ habits, setHabits, totalDays, calendarData }) => {
               .map((item, col) => (
                 <div
                   key={col}
-                  onClick={() =>
-                    toggleBox(
-                      row,
+                  onClick={() => {
+                    if (habit.name.trim() !== "") {
+                      toggleBox(row, col);
+                    } else {
+                      setHighlightRow(row);
 
-                      col + 28,
-                    )
-                  }
-                  className={`
-
-                    h-7
-
-                    border
-
-                    border-gray-400
-
-                    cursor-pointer
-
-                    flex
-
-                    justify-center
-
-                    items-center
-
-                    ${item ? "bg-red-400" : "bg-red-100"}
-
-                    `}
+                      setTimeout(() => {
+                        setHighlightRow(null);
+                      }, 1500);
+                    }
+                  }}
+                  className={`h-7 border border-gray-400 flex justify-center items-center ${
+                    habit.name.trim() === ""
+                      ? "cursor-not-allowed bg-gray-100"
+                      : "cursor-pointer"
+                  } ${
+                    item
+                      ? "bg-red-400"
+                      : habit.name.trim() === ""
+                        ? "bg-gray-100"
+                        : "bg-red-100"
+                  }`}
                 >
-                  {item ? "✓" : ""}
+                  {item ? (
+                    <span className="flex items-center justify-center w-full h-full text-sm">
+                      ✓
+                    </span>
+                  ) : null}
                 </div>
               ))}
           </div>

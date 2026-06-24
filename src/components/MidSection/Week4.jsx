@@ -1,13 +1,13 @@
 import React from "react";
 
-const Week4 = ({ habits, setHabits, calendarData }) => {
+const Week4 = ({ habits, setHabits, calendarData, setHighlightRow }) => {
   const toggleBox = (row, col) => {
     const copy = habits.map((habit) => ({
       ...habit,
       checks: [...habit.checks],
     }));
 
-    copy[row].checks[col] = !copy[row].checks[col];
+    copy[row].checks[col + 21] = !copy[row].checks[col + 21];
 
     setHabits(copy);
   };
@@ -56,32 +56,26 @@ const Week4 = ({ habits, setHabits, calendarData }) => {
               .map((item, col) => (
                 <div
                   key={col}
-                  onClick={() =>
-                    toggleBox(
-                      row,
+                  onClick={() => {
+                    if (habit.name.trim() !== "") {
+                      toggleBox(row, col);
+                    } else {
+                      setHighlightRow(row);
 
-                      col + 21,
-                    )
-                  }
-                  className={`
-
-h-7
-
-border
-
-border-gray-400
-
-cursor-pointer
-
-flex
-
-justify-center
-
-items-center
-
-${item ? "bg-yellow-300" : "bg-yellow-50"}
-
-`}
+                      setTimeout(() => {
+                        setHighlightRow(null);
+                      }, 1500);
+                    }
+                  }}
+                  className={` h-7 border border-gray-400 flex justify-center items-center ${habit.name.trim() === "" ? "cursor-not-allowed bg-gray-100" : "cursor-pointer"}
+                              ${
+                                item
+                                  ? "bg-yellow-300"
+                                  : habit.name.trim() === ""
+                                    ? "bg-gray-100"
+                                    : "bg-yell -50"
+                              }
+                            `}
                 >
                   {item ? "✓" : ""}
                 </div>
