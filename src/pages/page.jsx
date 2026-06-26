@@ -1,3 +1,6 @@
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 import Navbar from "../components/Navbar";
 import Header from "../components/TopSection/Header";
 import Middle from "../components/MidSection/Middle";
@@ -8,19 +11,37 @@ const createEmptyHabits = () => {
     .fill()
     .map(() => ({
       name: "",
-
       goal: "",
-
       checks: Array(31).fill(false),
     }));
 };
 
 const Page = () => {
+  const navigate = useNavigate();
+
+  // 🔐 AUTH CHECK
+  useEffect(() => {
+    const user = localStorage.getItem("loggedIn");
+
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
+
+  // 🌙 DARK MODE STATE
+  const [dark, setDark] = useState(false);
+
+  // 📦 HABITS STATE
   const [allHabits, setAllHabits] = useState({});
 
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  // 📅 DATE STATE
+  const [selectedMonth, setSelectedMonth] = useState(
+    new Date().getMonth()
+  );
 
-  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedYear, setSelectedYear] = useState(
+    new Date().getFullYear()
+  );
 
   const currentKey = `${selectedYear}-${selectedMonth}`;
 
@@ -29,12 +50,16 @@ const Page = () => {
   const setHabits = (newHabits) => {
     setAllHabits((prev) => ({
       ...prev,
-
       [currentKey]: newHabits,
     }));
   };
 
-  const totalDays = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+  // 📆 DAYS
+  const totalDays = new Date(
+    selectedYear,
+    selectedMonth + 1,
+    0
+  ).getDate();
 
   const calendarData = [];
 
@@ -43,23 +68,24 @@ const Page = () => {
 
     calendarData.push({
       date: i,
-
-      day: date.toLocaleString(
-        "en-US",
-
-        {
-          weekday: "short",
-        },
-      ),
+      day: date.toLocaleString("en-US", {
+        weekday: "short",
+      }),
     });
   }
 
-  const [dark, setDark] = useState(false);
-
   return (
     <div>
-      <Navbar dark={dark} setDark={setDark} habits={habits} />
+      {/* NAVBAR */}
+      <Navbar
+        dark={dark}
+        setDark={setDark}
+        habits={habits}
+        selectedMonth={selectedMonth}
+        selectedYear={selectedYear}
+      />
 
+      {/* HEADER */}
       <Header
         habits={habits}
         totalDays={totalDays}
@@ -69,6 +95,7 @@ const Page = () => {
         setSelectedYear={setSelectedYear}
       />
 
+      {/* MAIN */}
       <Middle
         habits={habits}
         setHabits={setHabits}
@@ -76,6 +103,7 @@ const Page = () => {
         calendarData={calendarData}
       />
 
+      {/* FOOTER */}
       <Footer habits={habits} totalDays={totalDays} />
     </div>
   );

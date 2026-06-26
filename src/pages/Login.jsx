@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import bg from "../assets/img.png"; 
+import bg from "../assets/img.png";
 
 const Login = () => {
   const navigate = useNavigate();
+
   const [showPassword, setShowPassword] = useState(false);
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [error, setError] = useState(false);
+
+  // auto redirect if already logged in
+  useEffect(() => {
+    const user = localStorage.getItem("loggedIn");
+
+    if (user) {
+      navigate("/tracker");
+    }
+  }, []);
 
   return (
     <div
       className="min-h-screen flex items-center justify-center px-5 bg-cover bg-center relative"
       style={{ backgroundImage: `url(${bg})` }}
     >
-      {/* LIGHT overlay (very soft) */}
+      {/* overlay */}
       <div className="absolute inset-0 bg-white/20"></div>
-
-      {/* optional soft blur layer for premium look */}
       <div className="absolute inset-0 backdrop-blur-[1px]"></div>
 
       <motion.div
@@ -41,21 +54,29 @@ const Login = () => {
           Track today. Improve tomorrow.
         </p>
 
-        {/* Form */}
+        {/* FORM */}
         <div className="mt-8 space-y-5">
-          {/* Email */}
+          {/* EMAIL */}
           <div>
             <label className="text-sm font-medium text-gray-700">
               Email Address
             </label>
+
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
-              className="mt-2 w-full rounded-xl border border-gray-300 px-4 py-3 outline-none focus:ring-4 focus:ring-violet-100"
+              className={`mt-2 w-full rounded-xl border px-4 py-3 outline-none focus:ring-4 focus:ring-violet-100
+                ${error && !email ? "border-red-500" : "border-gray-300"}`}
             />
+
+            {error && !email && (
+              <p className="text-red-500 text-sm mt-1">Please enter email</p>
+            )}
           </div>
 
-          {/* Password */}
+          {/* PASSWORD */}
           <div>
             <label className="text-sm font-medium text-gray-700">
               Password
@@ -64,8 +85,11 @@ const Login = () => {
             <div className="relative mt-2">
               <input
                 type={showPassword ? "text" : "password"}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-                className="w-full rounded-xl border border-gray-300 px-4 py-3 pr-12 outline-none focus:ring-4 focus:ring-violet-100"
+                className={`w-full rounded-xl border px-4 py-3 pr-12 outline-none focus:ring-4 focus:ring-violet-100
+                  ${error && !password ? "border-red-500" : "border-gray-300"}`}
               />
 
               <button
@@ -76,31 +100,38 @@ const Login = () => {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
             </div>
+
+            {error && !password && (
+              <p className="text-red-500 text-sm mt-1">Please enter password</p>
+            )}
           </div>
 
-          {/* Forgot */}
-          <div className="flex justify-end">
-            <button className="text-sm text-violet-500 hover:underline">
-              Forgot Password?
-            </button>
-          </div>
-
-          {/* Login */}
+          {/* LOGIN BUTTON */}
           <button
-            onClick={() => navigate("/tracker")}
+            onClick={() => {
+              if (!email || !password) {
+                setError(true);
+                return;
+              }
+
+              setError(false);
+              localStorage.setItem("loggedIn", "true");
+              localStorage.setItem("userEmail", email);
+              navigate("/tracker");
+            }}
             className="w-full bg-violet-500 text-white py-3 rounded-xl font-semibold hover:bg-violet-600 transition"
           >
             Login
           </button>
 
-          {/* Divider */}
+          {/* DIVIDER */}
           <div className="flex items-center gap-3">
             <hr className="flex-1 border-gray-300" />
             <span className="text-sm text-gray-400">OR</span>
             <hr className="flex-1 border-gray-300" />
           </div>
 
-          {/* Guest */}
+          {/* GUEST */}
           <button
             onClick={() => navigate("/tracker")}
             className="w-full border border-violet-300 text-violet-500 py-3 rounded-xl hover:bg-violet-50 transition"
@@ -108,7 +139,7 @@ const Login = () => {
             Continue as Guest
           </button>
 
-          {/* Signup */}
+          {/* SIGNUP */}
           <p className="text-center text-sm text-gray-500">
             Don't have an account?{" "}
             <span className="text-violet-500 font-semibold cursor-pointer hover:underline">
