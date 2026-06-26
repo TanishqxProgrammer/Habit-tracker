@@ -24,7 +24,7 @@ const Navbar = ({ dark, setDark, habits = [] }) => {
         </p>
       </div>
 
-      {/* Right */}
+      {/*Right*/}
 
       <div className="flex items-center gap-5">
         <button onClick={() => setDark(!dark)} className="cursor-pointer hover:scale-105 transition">
