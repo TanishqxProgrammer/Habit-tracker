@@ -22,29 +22,19 @@ const Page = () => {
   // 🔐 AUTH CHECK
   useEffect(() => {
     const user = localStorage.getItem("loggedIn");
-
     if (!user) {
       navigate("/");
     }
-  }, []);
-
-  // 🌙 DARK MODE STATE
-  const [dark, setDark] = useState(false);
+  }, [navigate]);
 
   // 📦 HABITS STATE
   const [allHabits, setAllHabits] = useState({});
 
   // 📅 DATE STATE
-  const [selectedMonth, setSelectedMonth] = useState(
-    new Date().getMonth()
-  );
-
-  const [selectedYear, setSelectedYear] = useState(
-    new Date().getFullYear()
-  );
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
   const currentKey = `${selectedYear}-${selectedMonth}`;
-
   const habits = allHabits[currentKey] || createEmptyHabits();
 
   const setHabits = (newHabits) => {
@@ -55,31 +45,21 @@ const Page = () => {
   };
 
   // 📆 DAYS
-  const totalDays = new Date(
-    selectedYear,
-    selectedMonth + 1,
-    0
-  ).getDate();
-
+  const totalDays = new Date(selectedYear, selectedMonth + 1, 0).getDate();
   const calendarData = [];
 
   for (let i = 1; i <= totalDays; i++) {
     const date = new Date(selectedYear, selectedMonth, i);
-
     calendarData.push({
       date: i,
-      day: date.toLocaleString("en-US", {
-        weekday: "short",
-      }),
+      day: date.toLocaleString("en-US", { weekday: "short" }),
     });
   }
 
   return (
-    <div>
+    <div className="bg-white text-black min-h-screen">
       {/* NAVBAR */}
       <Navbar
-        dark={dark}
-        setDark={setDark}
         habits={habits}
         selectedMonth={selectedMonth}
         selectedYear={selectedYear}
