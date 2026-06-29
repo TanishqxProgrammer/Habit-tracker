@@ -18,9 +18,9 @@ const Goal = ({ habits, setHabits, totalDays }) => {
       <div className="w-full h-26 border-b flex justify-center items-center">
         <p className="whitespace-pre-line font-bold font-serif text-center">
           {`G
-O
-A
-L`}
+            O
+            A
+            L`}
         </p>
       </div>
 

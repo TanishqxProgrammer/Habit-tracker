@@ -7,18 +7,14 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
   const safeMonth = Number(selectedMonth ?? 0);
   const safeYear = Number(selectedYear ?? new Date().getFullYear());
 
-  const monthName = new Date(
-    safeYear,
-    safeMonth,
-    1
-  ).toLocaleString("default", { month: "long" });
+  const monthName = new Date(safeYear, safeMonth, 1).toLocaleString("default", {
+    month: "long",
+  });
 
   const userEmail = localStorage.getItem("userEmail") || "";
   const firstLetter = userEmail.charAt(0).toUpperCase();
 
-  const totalHabits = habits.filter(
-    (habit) => habit.name.trim() !== ""
-  ).length;
+  const totalHabits = habits.filter((habit) => habit.name.trim() !== "").length;
 
   const MAX_HABITS = 15;
 
@@ -32,7 +28,9 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
     <nav className="sticky top-0 z-50 bg-purple-200 border-b border-gray-300 px-4 py-3">
       {/* Desktop */}
       <div className="hidden sm:flex justify-between items-center">
+
         {/* Left */}
+
         <div>
           <h1 className="text-2xl font-bold font-serif">Habit Tracker</h1>
           <p className="text-sm text-gray-600">
@@ -41,6 +39,7 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
         </div>
 
         {/* Right */}
+
         <div className="flex items-center gap-5">
           <div className="text-right">
             <h2 className="font-semibold">User</h2>
@@ -63,8 +62,11 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
       </div>
 
       {/* Mobile */}
+
       <div className="sm:hidden">
+
         {/* Top Row */}
+
         <div className="flex justify-between items-start">
           <div>
             <h1 className="text-xl font-bold font-serif">Habit Tracker</h1>
@@ -79,6 +81,7 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
         </div>
 
         {/* Bottom Row */}
+        
         <div className="flex justify-between items-end mt-3">
           <div>
             <h2 className="font-semibold">User</h2>

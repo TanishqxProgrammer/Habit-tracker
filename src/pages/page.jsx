@@ -78,7 +78,7 @@ const Page = () => {
         setSelectedYear={setSelectedYear}
       />
 
-      {/* Middle - ONLY THIS SHOULD SCROLL */}
+      {/* Middle */}
       <div className="w-full overflow-x-auto">
         <div className="min-w-max">
           <Middle
