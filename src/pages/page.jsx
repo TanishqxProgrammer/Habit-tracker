@@ -61,7 +61,9 @@ const Page = () => {
 
   return (
     <div className="min-h-screen bg-white text-black overflow-x-hidden">
+      
       {/* Navbar */}
+
       <Navbar
         habits={habits}
         selectedMonth={selectedMonth}
@@ -69,6 +71,7 @@ const Page = () => {
       />
 
       {/* Header */}
+
       <Header
         habits={habits}
         totalDays={totalDays}
@@ -79,6 +82,7 @@ const Page = () => {
       />
 
       {/* Middle */}
+
       <div className="w-full overflow-x-auto">
         <div className="min-w-max">
           <Middle
@@ -91,6 +95,7 @@ const Page = () => {
       </div>
 
       {/* Footer */}
+
       <Footer habits={habits} totalDays={totalDays} />
     </div>
   );
