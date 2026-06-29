@@ -29,9 +29,9 @@ const DailyHabit = ({
   };
 
   return (
-    <div className="border-2 w-75">
+    <div className="border-2 flex-shrink-0 w-[300px]">
       {/* HEADER */}
-      <div className="h-19 flex justify-center items-center font-bold bg-purple-300 border-b">
+      <div className="h-[76px] flex justify-center items-center font-bold bg-purple-300 border-b">
         DAILY HABIT
       </div>
 

@@ -33,7 +33,7 @@ const Week1circle = ({ percentage, completedPerDay, incompletePerDay }) => {
   };
 
   return (
-    <div className="h-50 w-49 border flex flex-col items-center">
+    <div className="ml-2 h-50 w-49 border flex flex-col items-center">
       {/* Donut */}
       <div className="relative h-28 w-28 mt-2">
         <Doughnut data={data} options={options} />

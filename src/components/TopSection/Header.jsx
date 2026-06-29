@@ -13,23 +13,25 @@ const Header = ({
   setSelectedYear,
 }) => {
   return (
-    <div className="p-2 flex gap-3 border">
-      <div className="flex flex-col">
-        <Habit />
-        <Month
-          selectedMonth={selectedMonth}
-          setSelectedMonth={setSelectedMonth}
-          selectedYear={selectedYear}
-          setSelectedYear={setSelectedYear}
-        />
-      </div>
+    <div className="border p-3">
+      <div className="flex flex-col lg:flex-row gap-4 items-stretch">
+        <div className="flex flex-col">
+          <Habit />
+          <Month
+            selectedMonth={selectedMonth}
+            setSelectedMonth={setSelectedMonth}
+            selectedYear={selectedYear}
+            setSelectedYear={setSelectedYear}
+          />
+        </div>
 
-      <div className="w-250px">
-        <DailyProgress habits={habits} />
-      </div>
+        <div className="flex-1 min-w-[320px]">
+          <DailyProgress habits={habits} />
+        </div>
 
-      <div className="w-50px">
-        <ProgressCircle habits={habits} totalDays={totalDays} />
+        <div className="flex justify-center lg:justify-end">
+          <ProgressCircle habits={habits} totalDays={totalDays} />
+        </div>
       </div>
     </div>
   );

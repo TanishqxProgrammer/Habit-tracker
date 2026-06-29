@@ -55,38 +55,40 @@ const Footer = ({ habits, totalDays }) => {
   const week5 = getWeekStats(28, totalDays);
 
   return (
-    <div className="p-2 flex border-2">
-      <WeeklyProgress />
-      <Week1circle
-        percentage={week1.percentage}
-        completedPerDay={week1.completedPerDay}
-        incompletePerDay={week1.incompletePerDay}
-      />
+    <div className="w-full overflow-x-auto m-2">
+      <div className="flex min-w-max border-2">
+        <WeeklyProgress />
+        <Week1circle
+          percentage={week1.percentage}
+          completedPerDay={week1.completedPerDay}
+          incompletePerDay={week1.incompletePerDay}
+        />
 
-      <Week2circle
-        percentage={week2.percentage}
-        completedPerDay={week2.completedPerDay}
-        incompletePerDay={week2.incompletePerDay}
-      />
+        <Week2circle
+          percentage={week2.percentage}
+          completedPerDay={week2.completedPerDay}
+          incompletePerDay={week2.incompletePerDay}
+        />
 
-      <Week3circle
-        percentage={week3.percentage}
-        completedPerDay={week3.completedPerDay}
-        incompletePerDay={week3.incompletePerDay}
-      />
+        <Week3circle
+          percentage={week3.percentage}
+          completedPerDay={week3.completedPerDay}
+          incompletePerDay={week3.incompletePerDay}
+        />
 
-      <Week4circle
-        percentage={week4.percentage}
-        completedPerDay={week4.completedPerDay}
-        incompletePerDay={week4.incompletePerDay}
-      />
+        <Week4circle
+          percentage={week4.percentage}
+          completedPerDay={week4.completedPerDay}
+          incompletePerDay={week4.incompletePerDay}
+        />
 
-      <Week5circle
-        percentage={week5.percentage}
-        completedPerDay={week5.completedPerDay}
-        incompletePerDay={week5.incompletePerDay}
-      />
-      <Notes />
+        <Week5circle
+          percentage={week5.percentage}
+          completedPerDay={week5.completedPerDay}
+          incompletePerDay={week5.incompletePerDay}
+        />
+        <Notes />
+      </div>
     </div>
   );
 };

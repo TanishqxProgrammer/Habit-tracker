@@ -13,7 +13,7 @@ const Goal = ({ habits, setHabits, totalDays }) => {
   };
 
   return (
-    <div className="border w-9">
+    <div className="border w-8">
       {/* Header */}
       <div className="w-full h-26 border-b flex justify-center items-center">
         <p className="whitespace-pre-line font-bold font-serif text-center">

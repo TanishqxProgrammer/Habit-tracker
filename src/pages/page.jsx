@@ -19,7 +19,7 @@ const createEmptyHabits = () => {
 const Page = () => {
   const navigate = useNavigate();
 
-  //  AUTH CHECK
+  // AUTH CHECK
   useEffect(() => {
     const user = localStorage.getItem("loggedIn");
     if (!user) {
@@ -27,10 +27,10 @@ const Page = () => {
     }
   }, [navigate]);
 
-  //  HABITS STATE
+  // HABITS STATE
   const [allHabits, setAllHabits] = useState({});
 
-  //  DATE STATE
+  // DATE STATE
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
 
@@ -44,28 +44,31 @@ const Page = () => {
     }));
   };
 
-  //  DAYS
+  // CALENDAR DATA
   const totalDays = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-  const calendarData = [];
 
+  const calendarData = [];
   for (let i = 1; i <= totalDays; i++) {
     const date = new Date(selectedYear, selectedMonth, i);
+
     calendarData.push({
       date: i,
-      day: date.toLocaleString("en-US", { weekday: "short" }),
+      day: date.toLocaleString("en-US", {
+        weekday: "short",
+      }),
     });
   }
 
   return (
-    <div className="bg-white text-black min-h-screen">
-      {/* NAVBAR */}
+    <div className="min-h-screen bg-white text-black overflow-x-hidden">
+      {/* Navbar */}
       <Navbar
         habits={habits}
         selectedMonth={selectedMonth}
         selectedYear={selectedYear}
       />
 
-      {/* HEADER */}
+      {/* Header */}
       <Header
         habits={habits}
         totalDays={totalDays}
@@ -75,16 +78,19 @@ const Page = () => {
         setSelectedYear={setSelectedYear}
       />
 
-      {/* MAIN */}
-      <div className="overflow-x-auto">
-        <Middle
-          habits={habits}
-          setHabits={setHabits}
-          totalDays={totalDays}
-          calendarData={calendarData}
-        />
+      {/* Middle - ONLY THIS SHOULD SCROLL */}
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-max">
+          <Middle
+            habits={habits}
+            setHabits={setHabits}
+            totalDays={totalDays}
+            calendarData={calendarData}
+          />
+        </div>
       </div>
 
+      {/* Footer */}
       <Footer habits={habits} totalDays={totalDays} />
     </div>
   );

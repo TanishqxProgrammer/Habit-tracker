@@ -12,23 +12,32 @@ import { motion } from "framer-motion";
 const Middle = ({ habits, setHabits, totalDays, calendarData }) => {
   const [highlightRow, setHighlightRow] = useState(null);
   const [dragIndex, setDragIndex] = useState(null);
+
   const moveHabit = (from, to) => {
     if (from === null || from === to) return;
 
     const copy = [...habits];
-
     const [removed] = copy.splice(from, 1);
     copy.splice(to, 0, removed);
 
     setHabits(copy);
-    setDragIndex(null); // reset after drop
+    setDragIndex(null);
   };
 
   return (
-  <motion.div
-    layout
-    className="h-136 p-2 border-2 inline-flex"
-  >
+    <motion.div
+      layout
+      className="w-full border-2 p-2"
+    >
+      {/* SCROLL WRAPPER */}
+      <div
+        className="
+          flex
+          w-max md:w-full
+          overflow-x-auto md:overflow-x-hidden
+        "
+      >
+
         <DailyHabit
           habits={habits}
           setHabits={setHabits}
@@ -40,33 +49,10 @@ const Middle = ({ habits, setHabits, totalDays, calendarData }) => {
           moveHabit={moveHabit}
         />
 
-        <Week1
-          habits={habits}
-          setHabits={setHabits}
-          calendarData={calendarData}
-          setHighlightRow={setHighlightRow}
-        />
-
-        <Week2
-          habits={habits}
-          setHabits={setHabits}
-          calendarData={calendarData}
-          setHighlightRow={setHighlightRow}
-        />
-
-        <Week3
-          habits={habits}
-          setHabits={setHabits}
-          calendarData={calendarData}
-          setHighlightRow={setHighlightRow}
-        />
-
-        <Week4
-          habits={habits}
-          setHabits={setHabits}
-          calendarData={calendarData}
-          setHighlightRow={setHighlightRow}
-        />
+        <Week1 habits={habits} setHabits={setHabits} calendarData={calendarData} setHighlightRow={setHighlightRow} />
+        <Week2 habits={habits} setHabits={setHabits} calendarData={calendarData} setHighlightRow={setHighlightRow} />
+        <Week3 habits={habits} setHabits={setHabits} calendarData={calendarData} setHighlightRow={setHighlightRow} />
+        <Week4 habits={habits} setHabits={setHabits} calendarData={calendarData} setHighlightRow={setHighlightRow} />
 
         <Week5
           habits={habits}
@@ -79,7 +65,9 @@ const Middle = ({ habits, setHabits, totalDays, calendarData }) => {
         <Goal habits={habits} setHabits={setHabits} totalDays={totalDays} />
 
         <Progress habits={habits} />
-      </motion.div>
+
+      </div>
+    </motion.div>
   );
 };
 
