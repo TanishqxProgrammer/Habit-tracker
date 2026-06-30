@@ -5,14 +5,18 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const Week4circle = ({ percentage, completedPerDay, incompletePerDay }) => {
+const WeekCircle = ({
+  percentage,
+  completedPerDay,
+  incompletePerDay,
+  color,
+  lightColor,
+}) => {
   const data = {
     datasets: [
       {
         data: [percentage, 100 - percentage],
-
-        backgroundColor: ["#fff085", "#fef9c2"],
-
+        backgroundColor: [color, lightColor],
         borderWidth: 0,
       },
     ],
@@ -20,12 +24,10 @@ const Week4circle = ({ percentage, completedPerDay, incompletePerDay }) => {
 
   const options = {
     cutout: "78%",
-
     plugins: {
       legend: {
         display: false,
       },
-
       tooltip: {
         enabled: false,
       },
@@ -34,37 +36,39 @@ const Week4circle = ({ percentage, completedPerDay, incompletePerDay }) => {
 
   return (
     <div className="h-50 w-49 border flex flex-col items-center">
-      {/* Donut */}
+      {/* Donut Chart */}
       <div className="relative h-28 w-28 mt-2">
         <Doughnut data={data} options={options} />
 
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-2xl font-bold text-[#fff085]">
+          <span className="text-2xl font-bold" style={{ color }}>
             {percentage}%
           </span>
         </div>
       </div>
 
-      {/* Bottom Boxes */}
+      {/* Statistics */}
       <div className="flex flex-col mt-[15px]">
+        {/* Completed */}
         <div className="flex">
-          {completedPerDay.map((num, index) => (
+          {[0, 1, 2, 3, 4, 5, 6].map((index) => (
             <div
               key={index}
               className="h-8 w-7 border-r border-t flex items-center justify-center"
             >
-              {num}
+              {completedPerDay[index] ?? ""}
             </div>
           ))}
         </div>
 
+        {/* Incomplete */}
         <div className="flex">
-          {incompletePerDay.map((num, index) => (
+          {[0, 1, 2, 3, 4, 5, 6].map((index) => (
             <div
               key={index}
               className="h-8 w-7 border-r border-t flex items-center justify-center"
             >
-              {num}
+              {incompletePerDay[index] ?? ""}
             </div>
           ))}
         </div>
@@ -73,4 +77,4 @@ const Week4circle = ({ percentage, completedPerDay, incompletePerDay }) => {
   );
 };
 
-export default Week4circle;
+export default WeekCircle;
