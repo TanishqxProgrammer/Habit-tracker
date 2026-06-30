@@ -2,7 +2,7 @@ import React from "react";
 
 const Notes = () => {
   return (
-    <div className="h-50 w-53 ml-3 border-2">
+    <div className="h-50 w-53 ml-1 border">
       <div>
         <h1 className="h-15 w-full flex justify-center text-center items-center text-xl border-b font-bold font-serif bg-purple-200">
           NOTES
