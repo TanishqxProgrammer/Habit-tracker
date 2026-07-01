@@ -74,8 +74,8 @@ const Footer = ({ habits, totalDays }) => {
   ];
 
   return (
-    <div className="w-full overflow-x-auto m-2">
-      <div className="flex min-w-max border-2">
+    <div className="w-full overflow-x-auto md:overflow-x-hidden p-3">
+  <div className="flex min-w-max md:min-w-0 border">
         <WeeklyProgress />
 
         {weeks.map((week, index) => (

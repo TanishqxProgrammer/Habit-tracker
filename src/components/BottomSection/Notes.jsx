@@ -22,7 +22,7 @@ const Notes = () => {
   };
 
   return (
-    <div className="h-50 w-53 ml-3 border">
+    <div className="h-50 w-55 border">
       {/* Header */}
       <div>
         <h1 className="h-15 w-full flex justify-center items-center text-xl font-bold font-serif border-b bg-purple-200">
