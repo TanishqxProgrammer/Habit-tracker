@@ -47,7 +47,7 @@ const Login = () => {
 
         {/* Heading */}
         <h1 className="text-3xl font-bold text-center mt-5 text-gray-800">
-          Habit Tracker
+          Trackify
         </h1>
 
         <p className="text-center text-gray-500 mt-2">

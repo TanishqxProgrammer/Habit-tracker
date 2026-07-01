@@ -32,7 +32,7 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
         {/* Left */}
 
         <div>
-          <h1 className="text-2xl font-bold font-serif">Habit Tracker</h1>
+          <h1 className="text-2xl font-bold font-serif">📈 Trackify</h1>
           <p className="text-sm text-gray-600">
             {monthName} {safeYear}
           </p>
@@ -69,7 +69,7 @@ const Navbar = ({ habits = [], selectedMonth, selectedYear }) => {
 
         <div className="flex justify-between items-start">
           <div>
-            <h1 className="text-xl font-bold font-serif">Habit Tracker</h1>
+            <h1 className="text-xl font-bold font-serif">Trackify</h1>
             <p className="text-sm text-gray-600">
               {monthName} {safeYear}
             </p>

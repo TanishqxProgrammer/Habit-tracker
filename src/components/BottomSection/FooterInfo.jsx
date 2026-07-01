@@ -17,7 +17,7 @@ const FooterInfo = ({ habits, totalDays, selectedMonth, selectedYear }) => {
         {/* Left */}
         <div className="flex-1">
           <h2 className="text-2xl font-bold tracking-wide text-gray-800">
-            Habit Tracker
+            📈 Trackify
           </h2>
           <p className="text-sm text-gray-500">
             Build Better Habits, One Day at a Time.
